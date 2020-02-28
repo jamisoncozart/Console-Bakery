@@ -3,10 +3,10 @@ using Models;
 
 public class Program
 {
+  public static Bread bread = new Bread();
+  public static Pastry pastries = new Pastry();
   public static void Main()
   {
-    Bread bread = new Bread();
-    Pastry pastries = new Pastry();
     MainMenu();
   }
   public static void MainMenu()
@@ -30,7 +30,6 @@ public class Program
         Console.WriteLine("That was not a valid command.");
       }
     }
-    
   }
   public static void PurchaseMenu()
   {
@@ -42,16 +41,54 @@ public class Program
       if(purchaseMenuChoice == "bread")
       {
         invalidInput = false;
-        //prompt number of bread
+        BuyItem(purchaseMenuChoice);
       }
       else if(purchaseMenuChoice == "pastry")
       {
         invalidInput = false;
-        //prompt number of pastries
+        BuyItem(purchaseMenuChoice);
       }
       else if(purchaseMenuChoice == "quit")
       {
         Environment.Exit(0);
+      }
+      else
+      {
+        Console.WriteLine("That was not a valid command.");
+      }
+    }
+  }
+  public static void BuyItem(string item)
+  {
+    Console.WriteLine($"Please enter the amount of {item} you would like to buy: ($5 each (Buy 2 get 1 Free)");
+    int quantityToPurchase = int.Parse(Console.ReadLine());
+    if(item == "pastry")
+    {
+      pastries.AddPastries(quantityToPurchase);
+      BuyMore();
+    }
+    else if(item == "bread")
+    {
+      bread.AddBread(quantityToPurchase);
+      BuyMore();
+    }
+  }
+  public static void BuyMore()
+  {
+    bool invalidInput = true;
+    while(invalidInput)
+    {
+      Console.WriteLine("Would you like to:\n'complete order' or 'buy more'");
+      string answer = Console.ReadLine();
+      if(answer == "complete order")
+      {
+        invalidInput = false;
+        CompleteOrder();
+      }
+      else if(answer == "buy more")
+      {
+        invalidInput = false;
+        PurchaseMenu();
       }
       else
       {
