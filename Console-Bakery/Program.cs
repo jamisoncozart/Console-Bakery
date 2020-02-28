@@ -63,12 +63,12 @@ public class Program
     }
     if(item == "pastry")
     {
-      pastries.AddPastries(quantityToPurchase);
+      pastries.AddItems(quantityToPurchase);
       BuyMore();
     }
     else if(item == "bread")
     {
-      bread.AddBread(quantityToPurchase);
+      bread.AddItems(quantityToPurchase);
       BuyMore();
     }
   }
