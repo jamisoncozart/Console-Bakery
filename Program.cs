@@ -6,34 +6,19 @@ public class Program
 {
   public static Bread bread = new Bread();
   public static Pastry pastries = new Pastry();
+  public delegate void MyFunction();
+
   public static void Main()
   {
     MainMenu();
   }
+
   public static void MainMenu()
   {
-    bool invalidInput = true;
-    while(invalidInput)
-      {
-      Console.Clear();
-      Console.WriteLine("Welcome to Console Bakery! Our current prices are: \nBread - $5 each (Buy 2 get 1 Free) | Pastry - $2 each (3 for $5) \nWould you like to: 'buy' or 'quit'");
-      string mainMenuChoice = Console.ReadLine();
-      if(mainMenuChoice == "buy")
-      {
-        invalidInput = false;
-        PurchaseMenu();
-      }
-      else if(mainMenuChoice == "quit")
-      {
-        Environment.Exit(0);
-      }
-      else
-      {
-        Console.WriteLine("That was not a valid command.");
-        Thread.Sleep(2000);
-      }
-    }
+    Console.Clear();
+    ValidateInput("Welcome to Console Bakery! Our current prices are: \nBread - $5 each (Buy 2 get 1 Free) | Pastry - $2 each (3 for $5) \nWould you like to: 'buy' or 'quit'", "buy", PurchaseMenu);
   }
+
   public static void PurchaseMenu()
   {
     bool invalidInput = true;
@@ -58,11 +43,13 @@ public class Program
       }
       else
       {
-        Console.WriteLine("That was not a valid command.");
+        Console.WriteLine("That was not a valid command!");
         Thread.Sleep(2000);
       }
     }
   }
+
+  // Prompts user how many of the item they wish to buy. Validates user input until integer.
   public static void BuyItem(string item)
   {
     Console.Clear();
@@ -85,58 +72,61 @@ public class Program
       BuyMore();
     }
   }
+
+  // Checks if user wants to buy more or complete purchase
   public static void BuyMore()
   {
-    bool invalidInput = true;
-    while(invalidInput)
-    {
-      Console.Clear();
-      Console.WriteLine("Would you like to:\n'complete order' or 'buy more'");
-      string answer = Console.ReadLine();
-      if(answer == "complete order")
-      {
-        invalidInput = false;
-        CompleteOrder();
-      }
-      else if(answer == "buy more")
-      {
-        invalidInput = false;
-        PurchaseMenu();
-      }
-      else
-      {
-        Console.WriteLine("That was not a valid command.");
-        Thread.Sleep(2000);
-      }
-    }
+    Console.Clear();
+    ValidateInput("Would you like to:\n'complete order' or 'buy more'", "complete order", CompleteOrder, "buy more", PurchaseMenu);
   }
+
+  // Calculates and prints reciept
   public static void CompleteOrder()
   {
     bread.CalculateOrder();
     pastries.CalculateOrder();
     Console.Clear();
     Console.WriteLine($"Your total is: ${bread.TotalCost + pastries.TotalCost}\nBread: {bread.Quantity}\nPastries: {pastries.Quantity}\nThank you for your purchase!");
+    ValidateInput("Would you like to:\n'restart' or 'quit'", "restart", MainMenu);
+  }
+
+  // Runs loop to check for valid user input. Checks for passed in valid answers and runs passed in functions if user inputs valid answer
+  public static void ValidateInput(string prompt, string option1, MyFunction f1, string option2 = null, MyFunction f2 = null, string option3 = null, MyFunction f3 = null)
+  {
     bool invalidInput = true;
     while(invalidInput)
-    {
-      Console.WriteLine("Would you like to:\n'restart' or 'exit'");
-      string restartAnswer = Console.ReadLine();
-      if(restartAnswer == "restart")
+      {
+      Console.WriteLine(prompt);
+      string userChoice = Console.ReadLine();
+      if(userChoice == option1)
       {
         invalidInput = false;
-        bread.ClearOrder();
-        pastries.ClearOrder();
-        MainMenu();
+        if(option1 == "restart")
+        {
+          bread.ClearOrder();
+          pastries.ClearOrder();
+        }
+        f1();
       }
-      else if(restartAnswer == "exit")
+      else if(userChoice == option2 && option2 != null && f2 != null)
+      {
+        invalidInput = false;
+        f2();
+      }
+      else if(userChoice == option3 && option3 != null && f3 != null)
+      {
+        invalidInput = false;
+        f3();
+      }
+      else if(userChoice == "quit")
       {
         Environment.Exit(0);
       }
       else
       {
-        Console.Clear();
-        Console.WriteLine("That was not a valid command.");
+        Console.WriteLine("That was not a valid command!");
         Thread.Sleep(2000);
+        Console.Clear();
       }
     }
   }
