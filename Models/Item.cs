@@ -2,8 +2,8 @@ namespace Models
 {
   public class Item
   {
-    public static int Cost { get; set; }
-    public static int Quantity { get; set; } = 0;
-    public static int TotalCost { get; set; } = 0;
+    public int Cost { get; set; }
+    public int Quantity { get; set; } = 0;
+    public int TotalCost { get; set; } = 0;
   }
 }
