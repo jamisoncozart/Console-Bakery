@@ -9,7 +9,9 @@ namespace ModelTests
     [TestMethod]
     public void AddBread_AddThreeToQuantity_Three()
     {
-      //tests here
+      Bread newBread = new Bread();
+      newBread.AddBread(3);
+      Assert.AreEqual(3, newBread.Quantity);
     }
   }
 }
