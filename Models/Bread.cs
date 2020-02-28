@@ -6,5 +6,9 @@ namespace Models
     {
       Cost = 5;
     }
+    public void AddBread(int numberOfBreads)
+    {
+      Quantity += numberOfBreads;
+    }
   }
 }
