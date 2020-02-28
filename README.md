@@ -1,6 +1,6 @@
 # Console Bakery
 
-Purchase all the bread and pastries you want, complete your order, and see your total order price. 
+Purchase all the bread and pastries you want, complete your order, and see your total order price. Practice with Custom classes, Namespaces, Auto-Implemented Properties, Delegates, Invalid input handling, and Console User Experience.
 
 ## Getting Started
 
@@ -16,6 +16,10 @@ Download the .zip file and extract all files into directory of your choice OR cl
 1. Clone the repository:
     ```
     git clone https://github.com/jamisoncozart/Console-Bakery
+    ```
+2. Change directories into the project working directory:
+    ```
+    cd Console-Bakery/Console-Bakery
     ```
 2. Compile and Run code:
     ```
