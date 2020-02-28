@@ -10,5 +10,10 @@ namespace Models
     {
       Quantity += numberOfBreads;
     }
+    public void CalculateOrder()
+    {
+      TotalCost = Quantity * Cost;
+      Quantity += Quantity/2;
+    }
   }
 }
